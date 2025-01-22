@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat & Tools</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 10px;
+            background-color: #f3f4f6;
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            height: 550px;
+            overflow: hidden;
+        }
+
+        /* Logo Styling */
+        #logo {
+            display: block;
+            margin: 10px auto 20px;
+            width: 300px; /* Logo width */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Quick Action Buttons */
+        #quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive buttons */
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #quick-actions button {
+            background-color: #bbbed6; /* Button color */
+            color: #2d3748; /* Dark text for contrast */
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        #quick-actions button:hover {
+            background-color: #a6aac6; /* Hover color */
+        }
+
+        /* Chat container */
+        #chat-container {
+            flex-grow: 1;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 0; /* Remove padding to avoid double scrollbars */
+            margin-bottom: 10px;
+            overflow: hidden; /* Prevent overflow for the container itself */
+            min-height: 150px; /* Minimum height */
+            max-height: 600px; /* Optional: Maximum height */
+        }
+
+        /* Chat history */
+        #chat-history {
+            height: 100%; /* Take full height of the container */
+            overflow-y: auto; /* Enable vertical scrolling */
+            padding: 10px; /* Add inner padding for readability */
+            box-sizing: border-box; /* Include padding in width/height calculations */
+        }
+
+        /* Markdown styling */
+        #chat-history h3 {
+            margin: 10px 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        #chat-history strong {
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        /* Input section */
+        #input-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+        }
+
+        #user-input {
+            flex-grow: 1;
+            border: none;
+            font-size: 14px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f3f4f6;
+        }
+
+        #user-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #3b82f6;
+        }
+
+        #send-btn, #clear-btn {
+            background-color: #3b82f6; /* Blue */
+            color: white;
+            border: none;
+            padding: 8px 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        #send-btn:hover, #clear-btn:hover {
+            background-color: #2563eb; /* Darker blue */
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo -->
+    <img id="logo" src="images/logo.png" alt="Logo Extensie">
+
+    <!-- Quick Action Buttons -->
+    <div id="quick-actions">
+        <button id="generate-headlines-btn">
+            <span>📝</span> Genereer titels
+        </button>
+        <button id="summarize-article-btn">
+            <span>📖</span> Vat artikel samen
+        </button>
+        <button id="give-advice-btn">
+            <span>💡</span> Geef advies
+        </button>
+        <button id="help-btn">
+            <span>❓</span> Help
+        </button>
+    </div>
+
+
+
+    <!-- Chat Container -->
+    <div id="chat-container">
+        <div id="chat-history"></div>
+    </div>
+
+    <!-- Input Section -->
+    <div id="input-container">
+        <input type="text" id="user-input" placeholder="Typ je vraag...">
+        <button id="send-btn">Stuur</button>
+        <button id="clear-btn">Clear</button>
+    </div>
+
+    <!-- Marked.js for Markdown Parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Script -->
+    <script src="popup.js"></script>
+</body>
+</html>
