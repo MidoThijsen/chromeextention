@@ -2,7 +2,6 @@ Welkom bij de Chat & Tools extensie!
 
 - 📝 Genereer titels: Maak creatieve titels voor je artikel.
 - 📖 Vat artikel samen: Geef een korte samenvatting van het artikel.
-- 💾 Sla artikel op: Bewaar het artikel als een tekstbestand.
 - 💡 Geef advies: Vraag advies over het artikel.
 - ❓ Help: Bekijk deze informatie.
 

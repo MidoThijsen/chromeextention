@@ -129,44 +129,37 @@ async function loadApiKey() {
 
 // Function to send a request to the OpenAI API
 async function sendMessageToAI(prompt) {
-    const apiKey = await loadApiKey();
-    if (!apiKey) {
-        console.error("API key is missing or invalid.");
-        return "Error: Unable to load the API key.";
-    }
+    // Replace with your deployed FastAPI endpoint URL.
+    // For local testing, you might use "http://127.0.0.1:8000/chat"
+    const fastApiUrl = "http://127.0.0.1:8000/chat";
 
-    const apiUrl = "https://api.openai.com/v1/chat/completions";
-    const data = {
-        model: "gpt-4o-mini",
-        messages: [
-            { role: "system", content: "Je bent een AI chatbot die de redactie helpt met artikelen in WordPress schrijven. Hou de tekst kort en zorg dat het gesprek een conversatie stijl heeft dus niet grote lappen tekst. Geen alleen meer tekst als de gebruiker er voor vraagt, Geef maximaal 200 woorden" },
-            { role: "user", content: prompt },
-        ],
+    // Prepare the payload to send to the backend
+    const payload = {
+        prompt: prompt,
         max_tokens: 500,
-        temperature: 0.7,
+        temperature: 0.7
     };
 
     try {
-        console.log("Sending prompt to OpenAI:", prompt);
-
-        const response = await fetch(apiUrl, {
+        console.log("Sending prompt to FastAPI:", prompt);
+        const response = await fetch(fastApiUrl, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${apiKey}`,
+                "Content-Type": "application/json"
+                // If your backend requires authentication, you could include an Authorization header here.
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(payload)
         });
 
         if (!response.ok) {
-            const errorDetail = await response.json();
-            console.error("OpenAI API Error:", errorDetail);
-            return `Error: ${errorDetail.error.message || "API request failed"}`;
+            const errorData = await response.json();
+            console.error("FastAPI error:", errorData);
+            return `Error: ${errorData.detail || "API request failed"}`;
         }
 
-        const json = await response.json();
-        console.log("Response from OpenAI:", json);
-        return json.choices[0].message.content.trim();
+        const data = await response.json();
+        console.log("Response from FastAPI:", data);
+        return data.response;  // Ensure this matches your FastAPI's response format
     } catch (error) {
         console.error("Network or other error:", error);
         return "Error: Unable to process the request.";

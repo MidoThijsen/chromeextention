@@ -14,7 +14,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["api_key.txt", "images/logo.png", "Help.txt", "Titles.txt"],
+      "resources": ["images/logo.png", "Help.txt", "Titles.txt"],
       "matches": ["<all_urls>"]
     }
   ],
